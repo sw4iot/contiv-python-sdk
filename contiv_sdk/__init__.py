@@ -1,4 +1,5 @@
 import json
+import os
 
 import requests
 import urllib3
@@ -7,6 +8,17 @@ urllib3.disable_warnings()
 
 
 class ContivSdk:
+
+    @staticmethod
+    def get_instance():
+        """ Static access method.
+        :rtype: ContivSdk
+        :return: ContivSdk instance
+        """
+        return ContivSdk(host=os.environ.get('CONTIV_HOST', 'contiv'),
+                         port=os.environ.get('CONTIV_PORT', '10000'),
+                         user=os.environ.get('CONTIV_USER', 'admin'),
+                         password=os.environ.get('CONTIV_PASSWORD', 'admin'))
 
     def __init__(self, host, port, user, password):
         self.base_url = 'https://{}:{}/api/v1'.format(host, port)
