@@ -18,5 +18,5 @@ deploy:
   on:
     tags: true
     distributions: sdist bdist_wheel
-    repo: sw4iot/contiv-python-sdk
+    repo: sw4iot/contiv-sdk
     condition: $TOXENV == py27
