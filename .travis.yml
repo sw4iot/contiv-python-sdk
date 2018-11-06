@@ -1,0 +1,22 @@
+language: python
+matrix:
+  include:
+  - python: 2.7
+    env: TOXENV=py27
+  - python: 3.5
+    env: TOXENV=py35
+  - python: 3.6
+    env: TOXENV=py36
+install:
+  - pip install -U tox tox-travis
+script: tox
+deploy:
+  provider: pypi
+  user: sw4iot
+  password:
+    secure: pEHmME0LJRBB8xgcpWRE2Bx05tHMDdiaxTcjGs1fwitjfTpjFx7TZboEhSxRKExTZySvB+du3XQI/BeV0ZmkwWxTjONXjIXFU4Gry4nUwAtlWcIM0WoUoeLbMT+ZUpCwEFmd72kOplCL3fDadWX4NiueMbJfRWQdvt38Nz37p7GfkmgtPBV05kYa+9+bx97gzTTSZxiCe1OX7N/xCsYksJEbonfhdhpmZ/Stf8OxFjgkSpzxkS8qog43tudKgffWRlxoC1KXFkYS17OEIf1KZoI6sl7dSh7o02mWamySdLXh03teqLc/Uv1Nofn1j33kOD/SGG1LtMYlV5HiO3oxpyRlVbfxsom8iie4GcHYnB4eG5uiIWmjbCtGoc8M5EBndD7I4Me27sLCYH66iASQZfGc8WC5SbyLHD7BGlJHKeLYBrRW1bT9ebhI3DQE4fvSMTfCviQdNVZWH1BCefBMt7NifHaMrv/vRz44nzzVOJhDjBddg/URNemHjtlESOd2yo3thbc+I1lGHfXrxH9+FfMKYQgbDYhjhrgcxyHmcaSy+q8nq1mkpnagS/iHajyaXONw3vnpOKeWzgyH2nOVuDpt5RY2Y/iEepVBM8SPnt72l80B2TSWR7bkli8R/S8q/K881GWNd4ig6MsHlx0xVNFdJFBYRMS6lMEZl0L2lXs=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: sw4iot/contiv-python-sdk
+    condition: $TOXENV == py27
