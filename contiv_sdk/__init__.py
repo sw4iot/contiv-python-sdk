@@ -37,12 +37,30 @@ class ContivSdk:
         return headers
 
     def __post_request(self, url, data, token=True):
-        return requests.post('{}/{}/'.format(self.base_url, url), json=data, headers=self.__headers(token), verify=False)
+        """
+        Post request
+
+        :param url:
+        :param data:
+        :param token:
+        :return:
+        """
+        return requests.post('{}/{}/'.format(self.base_url, url), json=data, headers=self.__headers(token),
+                             verify=False)
 
     def __delete_request(self, url):
+        """
+        Delete request
+
+        :param url:
+        :return:
+        """
         return requests.delete('{}/{}/'.format(self.base_url, url), headers=self.__headers(True), verify=False)
 
     def login(self):
+        """
+        Contiv login
+        """
         r = self.__post_request('auth_proxy/login', data={
             "username": self.user,
             "password": self.password
@@ -51,6 +69,12 @@ class ContivSdk:
             self.token = json.loads(r.content)['token']
 
     def post_tenant(self, tenant_name):
+        """
+        Create tenant
+
+        :param tenant_name:
+        :return:
+        """
         r = self.__post_request('tenants/{}'.format(tenant_name), data={
             "key": tenant_name,
             "tenantName": tenant_name
@@ -58,10 +82,28 @@ class ContivSdk:
         return json.loads(r.content) if r.status_code == requests.codes.ok else None
 
     def delete_tenant(self, tenant_name):
+        """
+        Delete tenant
+
+        :param tenant_name:
+        :return:
+        """
         r = self.__delete_request('tenants/{}'.format(tenant_name))
         return True if r.status_code == requests.codes.ok else None
 
     def post_network(self, tenant_name, encap, gateway, key, network_name, nw_type, subnet):
+        """
+        Create network
+
+        :param tenant_name:
+        :param encap:
+        :param gateway:
+        :param key:
+        :param network_name:
+        :param nw_type:
+        :param subnet:
+        :return:
+        """
         r = self.__post_request('networks/{}:{}-net'.format(tenant_name, tenant_name), data={
             'encap': encap,
             'gateway': gateway,
@@ -74,5 +116,11 @@ class ContivSdk:
         return json.loads(r.content) if r.status_code == requests.codes.ok else None
 
     def delete_network(self, tenant_name):
+        """
+        Delete network
+
+        :param tenant_name:
+        :return:
+        """
         r = self.__delete_request('networks/{}:{}-net'.format(tenant_name, tenant_name))
         return True if r.status_code == requests.codes.ok else None
