@@ -17,7 +17,7 @@ requirements = load_reqs('requirements.txt')
 
 setuptools.setup(
     name="contiv-sdk",
-    version="0.0.3",
+    version="0.0.4",
     author="SOFTWAY4IoT",
     author_email="softway4iot@gmail.com",
     description="contiv-python-sdk of SOFTWAY4IoT",
